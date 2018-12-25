@@ -14,8 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path , include , re_path
+from tasks import  views as tasks_views
+from users import  views as  users_views
+from django.conf.urls import url
+
 
 urlpatterns = [
+
+    path('index/', tasks_views.index),
+    path('register/', users_views.register ),
+    path('login/', users_views.login),
+    path('logout/', users_views.logout),
     path('admin/', admin.site.urls),
+    path('register/<id>/', users_views.register),  #需要带上级会员账号ID
+
+    path('captcha', include('captcha.urls'))  #验证码
+
 ]
